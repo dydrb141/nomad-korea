@@ -68,8 +68,22 @@ export default function CityRankCard({ cityRank }: Props) {
     <Link href={`/cities/${city.id}`} className="block">
       <Card className={`border-2 ${rankBg} hover:shadow-lg transition-shadow cursor-pointer`}>
       <CardHeader className="pb-3">
-        <div className="flex items-start justify-between">
-          <div className="flex items-center gap-3">
+        <div className="flex items-start justify-between gap-3">
+          {/* 좋아요 버튼 - 왼쪽 */}
+          <button
+            onClick={handleLike}
+            className="flex items-center gap-1 px-3 py-2 rounded-lg hover:bg-accent transition-colors"
+          >
+            <ThumbsUp
+              className={`h-5 w-5 ${liked ? 'fill-green-500 text-green-500' : 'text-gray-400'}`}
+            />
+            <span className={`text-sm font-semibold ${liked ? 'text-green-500' : 'text-muted-foreground'}`}>
+              {likesCount}
+            </span>
+          </button>
+
+          {/* 도시 정보 - 중앙 */}
+          <div className="flex items-center gap-3 flex-1">
             <span className="text-3xl">{rankBadge}</span>
             <div>
               <div className="flex items-center gap-2">
@@ -80,31 +94,18 @@ export default function CityRankCard({ cityRank }: Props) {
             </div>
           </div>
 
-          {/* 좋아요/싫어요 버튼 */}
-          <div className="flex gap-2">
-            <button
-              onClick={handleLike}
-              className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg hover:bg-accent transition-colors"
-            >
-              <ThumbsUp
-                className={`h-5 w-5 ${liked ? 'fill-green-500 text-green-500' : 'text-gray-400'}`}
-              />
-              <span className={`text-sm font-semibold ${liked ? 'text-green-500' : 'text-muted-foreground'}`}>
-                {likesCount}
-              </span>
-            </button>
-            <button
-              onClick={handleDislike}
-              className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg hover:bg-accent transition-colors"
-            >
-              <ThumbsDown
-                className={`h-5 w-5 ${disliked ? 'fill-red-500 text-red-500' : 'text-gray-400'}`}
-              />
-              <span className={`text-sm font-semibold ${disliked ? 'text-red-500' : 'text-muted-foreground'}`}>
-                {dislikesCount}
-              </span>
-            </button>
-          </div>
+          {/* 싫어요 버튼 - 오른쪽 */}
+          <button
+            onClick={handleDislike}
+            className="flex items-center gap-1 px-3 py-2 rounded-lg hover:bg-accent transition-colors"
+          >
+            <span className={`text-sm font-semibold ${disliked ? 'text-red-500' : 'text-muted-foreground'}`}>
+              {dislikesCount}
+            </span>
+            <ThumbsDown
+              className={`h-5 w-5 ${disliked ? 'fill-red-500 text-red-500' : 'text-gray-400'}`}
+            />
+          </button>
         </div>
       </CardHeader>
 
