@@ -49,7 +49,16 @@ export default async function CityDetailPage({ params }: Props) {
         {/* 헤더 섹션 */}
         <div className="mb-8">
           <div className="flex items-start justify-between gap-4 mb-4">
-            <div className="flex items-center gap-4">
+            {/* 좋아요 통계 - 왼쪽 */}
+            <div className="flex items-center gap-1 px-4 py-2 bg-green-50 dark:bg-green-950/20 rounded-lg border border-green-200 dark:border-green-800">
+              <ThumbsUp className="h-5 w-5 text-green-600 dark:text-green-400" />
+              <span className="text-sm font-semibold text-green-600 dark:text-green-400">
+                {city.likes}
+              </span>
+            </div>
+
+            {/* 도시 정보 - 중앙 */}
+            <div className="flex items-center gap-4 flex-1">
               <span className="text-6xl">{city.emoji}</span>
               <div>
                 <h1 className="text-4xl font-bold mb-2">{city.name}</h1>
@@ -57,20 +66,12 @@ export default async function CityDetailPage({ params }: Props) {
               </div>
             </div>
 
-            {/* 좋아요/싫어요 통계 */}
-            <div className="flex gap-3">
-              <div className="flex flex-col items-center gap-1 px-4 py-2 bg-green-50 dark:bg-green-950/20 rounded-lg border border-green-200 dark:border-green-800">
-                <ThumbsUp className="h-5 w-5 text-green-600 dark:text-green-400" />
-                <span className="text-sm font-semibold text-green-600 dark:text-green-400">
-                  {city.likes}
-                </span>
-              </div>
-              <div className="flex flex-col items-center gap-1 px-4 py-2 bg-red-50 dark:bg-red-950/20 rounded-lg border border-red-200 dark:border-red-800">
-                <ThumbsDown className="h-5 w-5 text-red-600 dark:text-red-400" />
-                <span className="text-sm font-semibold text-red-600 dark:text-red-400">
-                  {city.dislikes}
-                </span>
-              </div>
+            {/* 싫어요 통계 - 오른쪽 */}
+            <div className="flex items-center gap-1 px-4 py-2 bg-red-50 dark:bg-red-950/20 rounded-lg border border-red-200 dark:border-red-800">
+              <span className="text-sm font-semibold text-red-600 dark:text-red-400">
+                {city.dislikes}
+              </span>
+              <ThumbsDown className="h-5 w-5 text-red-600 dark:text-red-400" />
             </div>
           </div>
 
