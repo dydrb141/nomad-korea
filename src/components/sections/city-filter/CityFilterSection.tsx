@@ -1,7 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { CITIES } from '@/data/cities'
@@ -73,61 +79,69 @@ export default function CityFilterSection() {
             {/* Budget */}
             <div className="space-y-3">
               <Label className="text-base font-semibold">💰 예산</Label>
-              <RadioGroup value={budgetLevel} onValueChange={(v) => setBudgetLevel(v as BudgetLevel | 'any')} className="space-y-2">
-                {BUDGET_OPTIONS.map((opt) => (
-                  <div key={opt.value} className="flex items-center space-x-2">
-                    <RadioGroupItem value={opt.value} id={`budget-${opt.value}`} />
-                    <Label htmlFor={`budget-${opt.value}`} className="cursor-pointer">
+              <Select value={budgetLevel} onValueChange={(v) => setBudgetLevel(v as BudgetLevel | 'any')}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="예산을 선택하세요" />
+                </SelectTrigger>
+                <SelectContent>
+                  {BUDGET_OPTIONS.map((opt) => (
+                    <SelectItem key={opt.value} value={opt.value}>
                       {opt.icon} {opt.label}
-                    </Label>
-                  </div>
-                ))}
-              </RadioGroup>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Region */}
             <div className="space-y-3">
               <Label className="text-base font-semibold">🗺️ 지역</Label>
-              <RadioGroup value={region} onValueChange={(v) => setRegion(v as Region | 'any')} className="space-y-2">
-                {REGION_OPTIONS.map((opt) => (
-                  <div key={opt.value} className="flex items-center space-x-2">
-                    <RadioGroupItem value={opt.value} id={`region-${opt.value}`} />
-                    <Label htmlFor={`region-${opt.value}`} className="cursor-pointer">
+              <Select value={region} onValueChange={(v) => setRegion(v as Region | 'any')}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="지역을 선택하세요" />
+                </SelectTrigger>
+                <SelectContent>
+                  {REGION_OPTIONS.map((opt) => (
+                    <SelectItem key={opt.value} value={opt.value}>
                       {opt.icon} {opt.label}
-                    </Label>
-                  </div>
-                ))}
-              </RadioGroup>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Environment */}
             <div className="space-y-3">
               <Label className="text-base font-semibold">🏢 환경 성향</Label>
-              <RadioGroup value={environment} onValueChange={(v) => setEnvironment(v as EnvironmentType | 'any')} className="space-y-2">
-                {ENVIRONMENT_OPTIONS.map((opt) => (
-                  <div key={opt.value} className="flex items-center space-x-2">
-                    <RadioGroupItem value={opt.value} id={`environment-${opt.value}`} />
-                    <Label htmlFor={`environment-${opt.value}`} className="cursor-pointer">
+              <Select value={environment} onValueChange={(v) => setEnvironment(v as EnvironmentType | 'any')}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="환경을 선택하세요" />
+                </SelectTrigger>
+                <SelectContent>
+                  {ENVIRONMENT_OPTIONS.map((opt) => (
+                    <SelectItem key={opt.value} value={opt.value}>
                       {opt.icon} {opt.label}
-                    </Label>
-                  </div>
-                ))}
-              </RadioGroup>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Season */}
             <div className="space-y-3">
               <Label className="text-base font-semibold">📆 여행 시즌</Label>
-              <RadioGroup value={season} onValueChange={(v) => setSeason(v as Season | 'any')} className="space-y-2">
-                {SEASON_OPTIONS.map((opt) => (
-                  <div key={opt.value} className="flex items-center space-x-2">
-                    <RadioGroupItem value={opt.value} id={`season-${opt.value}`} />
-                    <Label htmlFor={`season-${opt.value}`} className="cursor-pointer">
+              <Select value={season} onValueChange={(v) => setSeason(v as Season | 'any')}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="시즌을 선택하세요" />
+                </SelectTrigger>
+                <SelectContent>
+                  {SEASON_OPTIONS.map((opt) => (
+                    <SelectItem key={opt.value} value={opt.value}>
                       {opt.icon} {opt.label}
-                    </Label>
-                  </div>
-                ))}
-              </RadioGroup>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
