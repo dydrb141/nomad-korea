@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { SeasonalCity } from '@/data/seasonal'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -8,7 +9,8 @@ interface Props {
 
 export default function SeasonCityCard({ city }: Props) {
   return (
-    <Card className="hover:shadow-md transition-shadow">
+    <Link href={`/cities/${city.id}`} className="block">
+      <Card className="hover:shadow-md transition-shadow cursor-pointer">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -37,5 +39,6 @@ export default function SeasonCityCard({ city }: Props) {
         </div>
       </CardContent>
     </Card>
+    </Link>
   )
 }

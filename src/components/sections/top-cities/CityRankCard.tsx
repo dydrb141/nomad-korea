@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { ThumbsUp, ThumbsDown } from 'lucide-react'
 import { CityRank } from '@/types/city'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
@@ -23,7 +24,10 @@ export default function CityRankCard({ cityRank }: Props) {
                   rank === 2 ? 'border-gray-400 bg-gray-50 dark:bg-gray-950/20' :
                                'border-orange-400 bg-orange-50 dark:bg-orange-950/20'
 
-  const handleLike = () => {
+  const handleLike = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+
     if (liked) {
       // 이미 좋아요 상태면 취소
       setLiked(false)
@@ -40,7 +44,10 @@ export default function CityRankCard({ cityRank }: Props) {
     }
   }
 
-  const handleDislike = () => {
+  const handleDislike = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+
     if (disliked) {
       // 이미 싫어요 상태면 취소
       setDisliked(false)
@@ -58,7 +65,8 @@ export default function CityRankCard({ cityRank }: Props) {
   }
 
   return (
-    <Card className={`border-2 ${rankBg} hover:shadow-lg transition-shadow`}>
+    <Link href={`/cities/${city.id}`} className="block">
+      <Card className={`border-2 ${rankBg} hover:shadow-lg transition-shadow cursor-pointer`}>
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
@@ -131,5 +139,6 @@ export default function CityRankCard({ cityRank }: Props) {
         </div>
       </CardContent>
     </Card>
+    </Link>
   )
 }
