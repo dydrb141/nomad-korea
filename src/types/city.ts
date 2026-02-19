@@ -1,22 +1,23 @@
 export type Season = 'spring' | 'summer' | 'autumn' | 'winter'
-export type NatureType = 'sea' | 'mountain' | 'urban' | 'any'
-export type AccessibilityType = 'ktx_2h' | 'ktx_1h' | 'capital' | 'any'
+export type EnvironmentType = 'nature' | 'urban' | 'cafe' | 'coworking'
+export type Region = '수도권' | '경상도' | '전라도' | '강원도' | '제주도' | '충청도'
+export type BudgetLevel = '100만원' | '100~200만원' | '200만원'
 
 export interface City {
   id: string
   name: string
-  region: string
+  region: Region
   emoji: string
-  score: number
+  likes: number
+  dislikes: number
   internetSpeed: number
   monthlyCost: { min: number; max: number }
   coworkingCount: number
   seoulAccess: string
   tags: string[]
-  nature: NatureType
+  environment: EnvironmentType
   bestSeasons: Season[]
-  hasCoworking: boolean
-  accessibility: AccessibilityType
+  budgetLevel: BudgetLevel
 }
 
 export interface CityRank {
@@ -26,10 +27,9 @@ export interface CityRank {
 }
 
 export interface CityFilter {
-  maxBudget: number
+  budgetLevel: BudgetLevel | 'any'
   minInternetSpeed: number
-  nature: NatureType
-  accessibility: AccessibilityType
+  environment: EnvironmentType | 'any'
+  region: Region | 'any'
   season: Season | 'any'
-  hasCoworking: boolean
 }

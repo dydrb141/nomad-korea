@@ -1,7 +1,10 @@
+'use client'
+
+import { useState } from 'react'
+import { ThumbsUp, ThumbsDown } from 'lucide-react'
 import { CityRank } from '@/types/city'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Progress } from '@/components/ui/progress'
 
 interface Props {
   cityRank: CityRank
@@ -9,11 +12,50 @@ interface Props {
 
 export default function CityRankCard({ cityRank }: Props) {
   const { rank, city, rankBadge } = cityRank
-  const progressValue = (city.score / 5) * 100
+
+  // 좋아요/싫어요 상태 관리
+  const [liked, setLiked] = useState(false)
+  const [disliked, setDisliked] = useState(false)
+  const [likesCount, setLikesCount] = useState(city.likes)
+  const [dislikesCount, setDislikesCount] = useState(city.dislikes)
 
   const rankBg = rank === 1 ? 'border-yellow-400 bg-yellow-50 dark:bg-yellow-950/20' :
                   rank === 2 ? 'border-gray-400 bg-gray-50 dark:bg-gray-950/20' :
                                'border-orange-400 bg-orange-50 dark:bg-orange-950/20'
+
+  const handleLike = () => {
+    if (liked) {
+      // 이미 좋아요 상태면 취소
+      setLiked(false)
+      setLikesCount(prev => prev - 1)
+    } else {
+      // 싫어요 상태였으면 먼저 취소
+      if (disliked) {
+        setDisliked(false)
+        setDislikesCount(prev => prev - 1)
+      }
+      // 좋아요 활성화
+      setLiked(true)
+      setLikesCount(prev => prev + 1)
+    }
+  }
+
+  const handleDislike = () => {
+    if (disliked) {
+      // 이미 싫어요 상태면 취소
+      setDisliked(false)
+      setDislikesCount(prev => prev - 1)
+    } else {
+      // 좋아요 상태였으면 먼저 취소
+      if (liked) {
+        setLiked(false)
+        setLikesCount(prev => prev - 1)
+      }
+      // 싫어요 활성화
+      setDisliked(true)
+      setDislikesCount(prev => prev + 1)
+    }
+  }
 
   return (
     <Card className={`border-2 ${rankBg} hover:shadow-lg transition-shadow`}>
@@ -29,19 +71,32 @@ export default function CityRankCard({ cityRank }: Props) {
               <p className="text-sm text-muted-foreground">{city.region}</p>
             </div>
           </div>
-          <div className="text-right">
-            <div className="text-2xl font-bold text-[var(--color-nomad-600)]">{city.score}</div>
-            <div className="text-xs text-muted-foreground">종합점수</div>
-          </div>
-        </div>
 
-        {/* Score progress */}
-        <div className="space-y-1 mt-2">
-          <div className="flex justify-between text-xs text-muted-foreground">
-            <span>종합 점수</span>
-            <span>{city.score} / 5.0</span>
+          {/* 좋아요/싫어요 버튼 */}
+          <div className="flex gap-2">
+            <button
+              onClick={handleLike}
+              className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg hover:bg-accent transition-colors"
+            >
+              <ThumbsUp
+                className={`h-5 w-5 ${liked ? 'fill-green-500 text-green-500' : 'text-gray-400'}`}
+              />
+              <span className={`text-sm font-semibold ${liked ? 'text-green-500' : 'text-muted-foreground'}`}>
+                {likesCount}
+              </span>
+            </button>
+            <button
+              onClick={handleDislike}
+              className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg hover:bg-accent transition-colors"
+            >
+              <ThumbsDown
+                className={`h-5 w-5 ${disliked ? 'fill-red-500 text-red-500' : 'text-gray-400'}`}
+              />
+              <span className={`text-sm font-semibold ${disliked ? 'text-red-500' : 'text-muted-foreground'}`}>
+                {dislikesCount}
+              </span>
+            </button>
           </div>
-          <Progress value={progressValue} className="h-2" />
         </div>
       </CardHeader>
 

@@ -8,7 +8,6 @@ import { CITIES } from '@/data/cities'
 import { City } from '@/types/city'
 
 const COMPARE_METRICS = [
-  { key: 'score', label: '종합 점수', format: (v: number) => `${v}점`, higherBetter: true },
   { key: 'internetSpeed', label: '인터넷 속도', format: (v: number) => `${v} Mbps`, higherBetter: true },
   { key: 'monthlyCostMin', label: '최소 월 생활비', format: (v: number) => `${v}만원`, higherBetter: false },
   { key: 'monthlyCostMax', label: '최대 월 생활비', format: (v: number) => `${v}만원`, higherBetter: false },
@@ -17,7 +16,6 @@ const COMPARE_METRICS = [
 
 function getCityMetric(city: City, key: string): number {
   switch (key) {
-    case 'score': return city.score
     case 'internetSpeed': return city.internetSpeed
     case 'monthlyCostMin': return city.monthlyCost.min
     case 'monthlyCostMax': return city.monthlyCost.max
